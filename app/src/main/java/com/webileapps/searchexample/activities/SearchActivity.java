@@ -98,6 +98,7 @@ public class SearchActivity extends BaseAppCompatActivity implements ISearchView
                 } else {
                     clearEditTextImage.setVisibility(View.INVISIBLE);
                     albumsListAdapter.emptyData();
+                    emptyDataStatusTextView.setVisibility(View.GONE);
                 }
             }
 
@@ -172,8 +173,10 @@ public class SearchActivity extends BaseAppCompatActivity implements ISearchView
     @Override
     public void setData(AlbumSearchResponse response) {
 
-        if (response.getResults().getAlbummatches().getAlbums().size() == 0)
+        if (response.getResults().getAlbummatches().getAlbums().size() == 0) {
             emptyDataStatusTextView.setVisibility(View.VISIBLE);
+            albumsListAdapter.emptyData();
+        }
         else {
             emptyDataStatusTextView.setVisibility(View.GONE);
             albumsListAdapter.setData(response.getResults().getAlbummatches().getAlbums());
